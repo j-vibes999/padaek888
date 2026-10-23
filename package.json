@@ -1,0 +1,17 @@
+{
+  "name": "pa-deak-operations",
+  "version": "1.4.1",
+  "type": "module",
+  "description": "ລະບົບບໍລິຫານຫຼັງບ້ານ ແລະ ການຈັດສົ່ງປາແດກກະປ໋ອງ (Pa Deak Operations)",
+  "scripts": {
+    "dev": "serve -l 4173 .",
+    "start": "serve -l 4173 .",
+    "test": "node --test tests/domain.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

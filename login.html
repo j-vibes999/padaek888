@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F1F6F2">
+  <title>Log In — ປາແດກ 888</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans Lao -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =====================================================================
+       PA DEAK 888 — LOG IN
+       Light Green & White Theme (matching Pa Deak Operations design tokens)
+       Clean Uiverse Card Style by Smit-Prajapati
+       ===================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      min-height: 100vh;
+    }
+
+    body {
+      background: #F1F6F2;
+      background: radial-gradient(circle at 50% 25%, #E3F2E7 0%, #F5F9F6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 350px;
+      width: 100%;
+      background: #FFFFFF;
+      background: linear-gradient(0deg, #FFFFFF 0%, #F4F8F5 100%);
+      border-radius: 40px;
+      padding: 34px 32px 30px;
+      border: 5px solid #FFFFFF;
+      box-shadow: rgba(23, 90, 60, 0.18) 0px 30px 35px -15px, 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+      margin: auto;
+    }
+
+    .brand-title {
+      text-align: center;
+      font-family: 'Noto Sans Lao', sans-serif;
+      font-weight: 900;
+      font-size: 30px;
+      color: #175A3C;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      letter-spacing: 0.02rem;
+    }
+
+    .form {
+      margin-top: 10px;
+    }
+
+    .form .input {
+      width: 100%;
+      background: #FFFFFF;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 20px;
+      margin-top: 14px;
+      box-shadow: #E1EFE6 0px 10px 12px -5px;
+      border-inline: 2px solid transparent;
+      font-family: inherit;
+      font-size: 13.5px;
+      color: #18291F;
+      outline: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .form .input::-moz-placeholder {
+      color: #8CA095;
+    }
+
+    .form .input::placeholder {
+      color: #8CA095;
+    }
+
+    .form .input:focus {
+      outline: none;
+      border-inline: 2px solid #22A06B;
+      box-shadow: #c6e6d3 0px 12px 14px -5px;
+    }
+
+    .form .login-button {
+      display: block;
+      width: 100%;
+      font-weight: 700;
+      font-size: 15px;
+      background: linear-gradient(45deg, #175A3C 0%, #2E9E6D 100%);
+      color: #FFFFFF;
+      padding-block: 14px;
+      margin: 22px auto 6px;
+      border-radius: 20px;
+      box-shadow: rgba(23, 90, 60, 0.3) 0px 20px 12px -12px;
+      border: none;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    .form .login-button:hover {
+      background: linear-gradient(45deg, #144f35 0%, #278f61 100%);
+      transform: scale(1.03);
+      box-shadow: rgba(23, 90, 60, 0.4) 0px 24px 15px -14px;
+    }
+
+    .form .login-button:active {
+      transform: scale(0.96);
+      box-shadow: rgba(23, 90, 60, 0.25) 0px 12px 8px -8px;
+    }
+
+    /* Error Alert */
+    .error-alert {
+      display: none;
+      color: #A62828;
+      background: #FBE9E9;
+      border: 1px solid rgba(166, 40, 40, 0.2);
+      border-radius: 14px;
+      padding: 8px 12px;
+      font-size: 12px;
+      margin-top: 8px;
+      text-align: center;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="brand-title">ປາແດກ 888</div>
+
+    <form class="form" id="loginForm" onsubmit="handleLogin(event)">
+      <div id="errorAlert" class="error-alert"></div>
+
+      <input 
+        required 
+        class="input" 
+        type="text" 
+        name="email" 
+        id="email" 
+        placeholder="E-mail or Username" 
+        autocomplete="username"
+      >
+      <input 
+        required 
+        class="input" 
+        type="password" 
+        name="password" 
+        id="password" 
+        placeholder="Password" 
+        autocomplete="current-password"
+      >
+
+      <input class="login-button" type="submit" value="Log In" id="btnSubmit">
+    </form>
+  </div>
+
+  <script>
+    function handleLogin(e) {
+      if (e) e.preventDefault();
+      const u = document.getElementById('email').value.trim();
+      const p = document.getElementById('password').value;
+      const err = document.getElementById('errorAlert');
+
+      if (!u || !p) {
+        if (err) {
+          err.textContent = 'Please enter both username and password.';
+          err.style.display = 'block';
+        }
+        return;
+      }
+
+      if (err) err.style.display = 'none';
+
+      // Persist auth session
+      try {
+        localStorage.setItem('pa_deak_auth', JSON.stringify({
+          username: u,
+          role: 'owner',
+          roleInfo: {
+            name: u.toLowerCase() === 'justkay' ? 'Justkay' : u,
+            title: 'Operations Director'
+          },
+          loggedInAt: new Date().toISOString()
+        }));
+      } catch (_) {}
+
+      const btn = document.getElementById('btnSubmit');
+      if (btn) btn.value = 'Logging in...';
+
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 350);
+    }
+  </script>
+</body>
+</html>
