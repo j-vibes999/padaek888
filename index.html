@@ -592,6 +592,34 @@
     .amount-shortcuts #payment-remaining-hint { margin-left: auto; font-size: 12.5px; font-weight: 600; }
     .adjust-preview { padding: 12px 14px; border-radius: 8px; background: var(--sunk); font-size: 13px; line-height: 1.7; }
 
+    /* Fast Order Modal Styles */
+    .order-qty-card { background: #FAFBF8; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px; }
+    .order-qty-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .order-qty-top .form-label { margin-bottom: 0; font-size: 13px; font-weight: 700; color: var(--ink); }
+    .order-stepper-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .order-stepper { display: inline-flex; align-items: center; background: var(--surface); border: 1.5px solid var(--line-2); border-radius: 9px; overflow: hidden; box-shadow: 0 1px 2px rgba(20, 53, 40, 0.04); }
+    .order-stepper:focus-within { border-color: var(--leaf); box-shadow: 0 0 0 3px rgba(30, 107, 73, 0.14); }
+    .btn-step { width: 44px; height: 42px; display: grid; place-items: center; font-size: 20px; font-weight: 600; color: var(--ink-2); background: var(--sunk); border: none; cursor: pointer; user-select: none; transition: background 0.15s, color 0.15s; }
+    .btn-step:hover { background: #E2E8DF; color: var(--ink); }
+    .btn-step:active { background: #D5DED2; }
+    .step-input-box { display: flex; align-items: center; gap: 4px; padding: 0 8px; }
+    .step-num-input { width: 68px; height: 42px; border: none; background: transparent; text-align: center; font-size: 20px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; outline: none; }
+    .step-num-input::-webkit-inner-spin-button, .step-num-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .step-unit { font-size: 13px; font-weight: 600; color: var(--muted); margin-right: 4px; }
+    .order-quick-chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .btn-chip { height: 36px; padding: 0 12px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line-2); font-size: 13px; font-weight: 600; color: var(--ink-2); cursor: pointer; transition: all 0.15s ease; }
+    .btn-chip:hover { background: var(--leaf-soft); border-color: var(--leaf-ink); color: var(--leaf-ink); }
+    .btn-chip:active { transform: scale(0.96); }
+    .order-qty-sub { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line-2); font-size: 12.5px; gap: 8px; flex-wrap: wrap; }
+    .order-qty-sub-left { display: flex; align-items: center; gap: 8px; }
+    .btn-link-sm { background: none; border: none; padding: 0; font-size: 12px; color: var(--leaf-ink); font-weight: 600; text-decoration: underline; cursor: pointer; }
+    .btn-link-sm:hover { color: var(--leaf-hover); }
+    .order-stock-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); background: var(--surface); padding: 3px 8px; border: 1px solid var(--line); border-radius: 8px; }
+    .stock-avail-text { display: inline-flex; align-items: center; gap: 5px; }
+    .stock-avail-text strong { color: var(--ink); }
+    .btn-xs { height: 26px; padding: 0 8px; font-size: 11.5px; border-radius: 6px; }
+    .form-control-sm { height: 32px; padding: 0 8px; font-size: 13px; }
+
     /* ---------- Modals ---------- */
     .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 100; padding: 24px; place-items: center; background: rgba(15, 38, 28, 0.42); backdrop-filter: blur(3px); overflow-y: auto; }
     .modal-backdrop.active { display: grid; }
@@ -1513,15 +1541,15 @@
 
 <!-- ================= MODAL: NEW ORDER ================= -->
 <div class="modal-backdrop" id="modal-new-order">
-  <div class="modal" style="max-width: 640px;" role="dialog" aria-modal="true" aria-labelledby="t-new-order">
+  <div class="modal" style="max-width: 580px;" role="dialog" aria-modal="true" aria-labelledby="t-new-order">
     <div class="modal-head">
       <h3 id="t-new-order"><span class="fig-icon tone-goods"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg></span>ສ້າງອໍເດີໃໝ່</h3>
       <button class="modal-close" onclick="app.closeModal('modal-new-order')" aria-label="ປິດ"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
     <form onsubmit="app.handleNewOrderSubmit(event)">
-      <div class="modal-body">
-        <div class="form-group">
-          <div class="label-row">
+      <div class="modal-body" style="padding: 14px 20px;">
+        <div class="form-group" style="margin-bottom: 12px;">
+          <div class="label-row" style="margin-bottom: 6px;">
             <label for="order-store-select">ຮ້ານຄ້າ / ລູກຄ້າ</label>
             <div class="seg" role="group" aria-label="ປະເພດລູກຄ້າ">
               <button type="button" class="cust-toggle active" id="btn-cust-existing" onclick="app.setCustomerMode('EXISTING')">ຮ້ານປະຈຳ</button>
@@ -1533,16 +1561,16 @@
             <div class="store-card" id="order-store-info-card"></div>
           </div>
           <div id="container-new-customer" style="display: none;">
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 8px;">
               <label for="order-new-customer-name">ຊື່ລູກຄ້າ / ຊື່ຮ້ານ</label>
               <input type="text" class="form-control" id="order-new-customer-name" placeholder="ເຊັ່ນ: ຮ້ານຕຳແຊບ ໂພນຕ້ອງ">
             </div>
-            <div class="form-row">
-              <div class="form-group">
+            <div class="form-row" style="margin-bottom: 8px;">
+              <div class="form-group" style="margin-bottom: 0;">
                 <label for="order-new-customer-phone">ເບີໂທລະສັບ</label>
                 <input type="tel" class="form-control" id="order-new-customer-phone" placeholder="020 xxxx xxxx">
               </div>
-              <div class="form-group">
+              <div class="form-group" style="margin-bottom: 0;">
                 <label for="order-new-customer-area">ບ້ານ / ເມືອງ / ແຂວງ</label>
                 <input type="text" class="form-control" id="order-new-customer-area" placeholder="ເຊັ່ນ: ໂພນຕ້ອງ, ວຽງຈັນ">
               </div>
@@ -1551,64 +1579,66 @@
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="order-delivery-method">ວິທີຈັດສົ່ງ</label>
-            <select class="form-control" id="order-delivery-method">
-              <option value="ລົດສົ່ງ">ລົດສົ່ງ (ຮອບໃນເມືອງ)</option>
-              <option value="ຝາກຂົນສົ່ງ">ຝາກຂົນສົ່ງ (ຕ່າງແຂວງ)</option>
-            </select>
+        <div class="order-qty-card">
+          <div class="order-qty-top">
+            <span class="form-label" data-pack-tpl="ຈຳນວນ ({u})">ຈຳນວນ (ແພັກ)</span>
+            <div class="order-stock-pill" id="order-stock-availability-bar">
+              <span class="stock-avail-text"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-warehouse"/></svg>ສາງ: <strong id="order-stock-available-text">-</strong></span>
+              <span class="stock-status" id="order-stock-status-badge"></span>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="order-channel">ຊ່ອງທາງຮັບອໍເດີ</label>
-            <select class="form-control" id="order-channel">
-              <option value="ໂທສັ່ງກົງ">ໂທສັ່ງກົງ</option>
-              <option value="Facebook Page">Facebook Page</option>
-              <option value="TikTok Shop">TikTok Shop</option>
-              <option value="Line OA">Line OA</option>
-              <option value="ໜ້າຮ້ານ/ສາງ">ມາຮັບເອງທີ່ສາງ</option>
-            </select>
+          <div class="order-stepper-row">
+            <div class="order-stepper">
+              <button type="button" class="btn-step" onclick="app.stepOrderQty(-1)" aria-label="ຫຼຸດ">-</button>
+              <div class="step-input-box">
+                <input type="number" class="step-num-input" id="order-qty-cases" value="1" min="1" oninput="app.updateOrderCasesToCans()">
+                <span class="step-unit" data-pack-tpl="{u}">ແພັກ</span>
+              </div>
+              <button type="button" class="btn-step" onclick="app.stepOrderQty(1)" aria-label="ເພີ່ມ">+</button>
+            </div>
+            <div class="order-quick-chips">
+              <button type="button" class="btn-chip" onclick="app.addOrderQty(1)">+1</button>
+              <button type="button" class="btn-chip" onclick="app.addOrderQty(5)">+5</button>
+              <button type="button" class="btn-chip" onclick="app.addOrderQty(10)">+10</button>
+              <button type="button" class="btn-chip" onclick="app.addOrderQty(20)">+20</button>
+            </div>
+          </div>
+          <div class="order-qty-sub">
+            <div class="order-qty-sub-left">
+              <span class="case-calc-hint" id="hint-calc-350" style="margin: 0; font-weight: 600; color: var(--ink);">-</span>
+              <button type="button" class="btn-link-sm" id="btn-toggle-loose-cans" onclick="app.toggleLooseCans()">+ ເສດກະປ໋ອງ</button>
+            </div>
+            <div class="order-price-quick">
+              <button type="button" class="btn-link-sm" id="btn-toggle-order-price-label" onclick="app.toggleOrderPriceEdit()">ແກ້ໄຂລາຄາ</button>
+            </div>
+          </div>
+
+          <div id="box-loose-cans" style="display: none; margin-top: 8px; padding: 8px 10px; background: var(--sunk); border-radius: 8px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="order-qty-cans" style="font-size: 12px; margin-bottom: 4px; display: block;">ຈຳນວນກະປ໋ອງລວມທັງໝົດ</label>
+              <input type="number" class="form-control form-control-sm" id="order-qty-cans" value="12" min="1" required oninput="app.updateOrderCansToCases()">
+            </div>
+          </div>
+
+          <div class="price-note" id="order-price-note" style="margin-top: 6px;">-</div>
+          <div id="box-order-price-edit" style="display: none; margin-top: 8px; padding: 10px; background: var(--sunk); border-radius: 8px;">
+            <div class="form-row">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="order-case-price" data-pack-tpl="ຕໍ່{u} (ກີບ)">ຕໍ່ແພັກ (ກີບ)</label>
+                <input type="text" inputmode="numeric" autocomplete="off" data-num class="form-control" id="order-case-price" value="240000" oninput="app.updateOrderPriceCaseToUnit()">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="order-unit-price">ຕໍ່ກະປ໋ອງ (ກີບ)</label>
+                <input type="text" inputmode="numeric" autocomplete="off" data-num class="form-control" id="order-unit-price" value="20000" oninput="app.updateOrderPriceUnitToCase()">
+              </div>
+            </div>
+            <div style="margin-top: 6px; display: flex; justify-content: flex-end;">
+              <button type="button" class="btn btn-ghost btn-xs" onclick="app.resetOrderPriceToDefault()"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>ລາຄາມາດຕະຖານ</button>
+            </div>
           </div>
         </div>
 
-        <div class="sub-card">
-          <div class="stock-bar" id="order-stock-availability-bar">
-            <div class="stock-bar-left"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-warehouse"/></svg>ສະຕັອກວ່າງ <strong id="order-stock-available-text">-</strong></div>
-            <div class="stock-status" id="order-stock-status-badge"></div>
-          </div>
-          <div class="label-row">
-            <span class="form-label">ຈຳນວນ</span>
-            <span class="case-calc-hint" id="hint-calc-350" style="margin: 0;">-</span>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="order-qty-cases" data-pack-tpl="{u} ({n} ກະປ໋ອງ)">ແພັກ (12 ກະປ໋ອງ)</label>
-              <input type="number" class="form-control" id="order-qty-cases" value="1" min="0" oninput="app.updateOrderCasesToCans()">
-            </div>
-            <div class="form-group">
-              <label for="order-qty-cans">ລວມກະປ໋ອງ</label>
-              <input type="number" class="form-control" id="order-qty-cans" value="12" min="1" required oninput="app.updateOrderCansToCases()">
-            </div>
-          </div>
-          <div class="sub-card-divider"></div>
-          <div class="label-row">
-            <span class="form-label">ລາຄາສົ່ງໃຫ້ຮ້ານນີ້</span>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="app.resetOrderPriceToDefault()"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>ລາຄາມາດຕະຖານ</button>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="order-case-price" data-pack-tpl="ຕໍ່{u} (ກີບ)">ຕໍ່ແພັກ (ກີບ)</label>
-              <input type="text" inputmode="numeric" autocomplete="off" data-num class="form-control" id="order-case-price" value="240000" oninput="app.updateOrderPriceCaseToUnit()">
-            </div>
-            <div class="form-group">
-              <label for="order-unit-price">ຕໍ່ກະປ໋ອງ (ກີບ)</label>
-              <input type="text" inputmode="numeric" autocomplete="off" data-num class="form-control" id="order-unit-price" value="20000" oninput="app.updateOrderPriceUnitToCase()">
-            </div>
-          </div>
-          <div class="price-note" id="order-price-note">-</div>
-        </div>
-
-        <div class="order-sum" id="order-profit-badge-box">
+        <div class="order-sum" id="order-profit-badge-box" style="margin-bottom: 12px;">
           <div>
             <div class="order-sum-label">ຍອດເງິນບິນ</div>
             <div class="order-sum-total" id="order-total-display">0 <span>LAK</span></div>
@@ -1622,9 +1652,28 @@
           </div>
         </div>
 
-        <details class="adv">
-          <summary><svg class="ic ic-sm" aria-hidden="true"><use href="#i-sliders"/></svg>ຕົ້ນທຶນ & ລາຄາປະຈຳຮ້ານ<svg class="ic ic-sm" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+        <details class="adv" id="details-order-adv">
+          <summary><svg class="ic ic-sm" aria-hidden="true"><use href="#i-sliders"/></svg><span>ຕົວເລືອກເພີ່ມເຕີມ (ວິທີສົ່ງ, ຊ່ອງທາງ, ຕົ້ນທຶນ)</span><svg class="ic ic-sm" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
           <div class="adv-body">
+            <div class="form-row" style="margin-bottom: 10px;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="order-delivery-method">ວິທີຈັດສົ່ງ</label>
+                <select class="form-control" id="order-delivery-method">
+                  <option value="ລົດສົ່ງ">ລົດສົ່ງ (ຮອບໃນເມືອງ)</option>
+                  <option value="ຝາກຂົນສົ່ງ">ຝາກຂົນສົ່ງ (ຕ່າງແຂວງ)</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="order-channel">ຊ່ອງທາງຮັບອໍເດີ</label>
+                <select class="form-control" id="order-channel">
+                  <option value="ໂທສັ່ງກົງ">ໂທສັ່ງກົງ</option>
+                  <option value="Facebook Page">Facebook Page</option>
+                  <option value="TikTok Shop">TikTok Shop</option>
+                  <option value="Line OA">Line OA</option>
+                  <option value="ໜ້າຮ້ານ/ສາງ">ມາຮັບເອງທີ່ສາງ</option>
+                </select>
+              </div>
+            </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="order-unit-cost">ຕົ້ນທຶນ / ກະປ໋ອງ (ກີບ)</label>
@@ -1635,7 +1684,7 @@
                 <input type="text" inputmode="numeric" autocomplete="off" data-num class="form-control" id="order-case-cost" value="144000" oninput="app.updateOrderCostCaseToUnit()">
               </div>
             </div>
-            <p class="field-hint" style="margin: -6px 0 12px;">ຕົ້ນທຶນລວມບິນນີ້: <b id="order-cost-total">-</b></p>
+            <p class="field-hint" style="margin: -6px 0 10px;">ຕົ້ນທຶນລວມບິນນີ້: <b id="order-cost-total">-</b></p>
             <div id="container-save-store-price">
               <label class="check-row"><input type="checkbox" id="order-save-store-price">ບັນທຶກລາຄານີ້ເປັນລາຄາປະຈຳຂອງຮ້ານ</label>
             </div>
@@ -3313,6 +3362,16 @@ class AppController {
       this.updateOrderCansToCases();
       const chkSave = document.getElementById('order-save-store-price');
       if (chkSave) chkSave.checked = false;
+      const boxPrice = document.getElementById('box-order-price-edit');
+      if (boxPrice) boxPrice.style.display = 'none';
+      const btnPrice = document.getElementById('btn-toggle-order-price-label');
+      if (btnPrice) btnPrice.textContent = 'ແກ້ໄຂລາຄາ';
+      const boxCans = document.getElementById('box-loose-cans');
+      if (boxCans) boxCans.style.display = 'none';
+      const btnCans = document.getElementById('btn-toggle-loose-cans');
+      if (btnCans) btnCans.textContent = '+ ເສດກະປ໋ອງ';
+      const detailsAdv = document.getElementById('details-order-adv');
+      if (detailsAdv) detailsAdv.removeAttribute('open');
       const storeSelect = document.getElementById('order-store-select');
       if (storeSelect && this.customerMode === 'EXISTING' && storeSelect.value) {
         this.handleStoreSelect(storeSelect.value);
@@ -3913,6 +3972,45 @@ class AppController {
     const cans = Math.max(0, D.toInt(document.getElementById('order-qty-cans').value, 0));
     document.getElementById('order-qty-cases').value = Math.floor(cans / PACK.size);
     this.updateOrderCaseHint();
+  }
+
+  stepOrderQty(delta) {
+    const caseInput = document.getElementById('order-qty-cases');
+    if (!caseInput) return;
+    const current = Math.max(0, D.toInt(caseInput.value, 1));
+    const next = Math.max(1, current + delta);
+    caseInput.value = next;
+    this.updateOrderCasesToCans();
+  }
+
+  addOrderQty(amount) {
+    const caseInput = document.getElementById('order-qty-cases');
+    if (!caseInput) return;
+    const current = Math.max(0, D.toInt(caseInput.value, 0));
+    caseInput.value = Math.max(1, current + amount);
+    this.updateOrderCasesToCans();
+  }
+
+  toggleLooseCans() {
+    const box = document.getElementById('box-loose-cans');
+    const btn = document.getElementById('btn-toggle-loose-cans');
+    if (!box) return;
+    const open = box.style.display !== 'none';
+    box.style.display = open ? 'none' : 'block';
+    if (btn) btn.textContent = open ? '+ ເສດກະປ໋ອງ' : '− ເຊື່ອງເສດ';
+    if (!open) {
+      const input = document.getElementById('order-qty-cans');
+      input?.focus();
+    }
+  }
+
+  toggleOrderPriceEdit() {
+    const box = document.getElementById('box-order-price-edit');
+    const btnLabel = document.getElementById('btn-toggle-order-price-label');
+    if (!box) return;
+    const open = box.style.display !== 'none';
+    box.style.display = open ? 'none' : 'block';
+    if (btnLabel) btnLabel.textContent = open ? 'ແກ້ໄຂລາຄາ' : 'ເຊື່ອງການແກ້ໄຂ';
   }
 
   readOrderForm() {
