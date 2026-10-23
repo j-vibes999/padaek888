@@ -152,8 +152,9 @@
         type="text" 
         name="email" 
         id="email" 
-        placeholder="E-mail or Username" 
+        placeholder="Username" 
         autocomplete="username"
+        value="Padaek888"
       >
       <input 
         required 
@@ -163,6 +164,7 @@
         id="password" 
         placeholder="Password" 
         autocomplete="current-password"
+        value="Padaek888"
       >
 
       <input class="login-button" type="submit" value="Log In" id="btnSubmit">
@@ -184,15 +186,24 @@
         return;
       }
 
+      // Verify credentials: Padaek888 / Padaek888
+      if (u.toLowerCase() !== 'padaek888' || (p !== 'Padaek888' && p.toLowerCase() !== 'padaek888')) {
+        if (err) {
+          err.textContent = 'Invalid username or password.';
+          err.style.display = 'block';
+        }
+        return;
+      }
+
       if (err) err.style.display = 'none';
 
       // Persist auth session
       try {
         localStorage.setItem('pa_deak_auth', JSON.stringify({
-          username: u,
+          username: 'Padaek888',
           role: 'owner',
           roleInfo: {
-            name: u.toLowerCase() === 'justkay' ? 'Justkay' : u,
+            name: 'Padaek888',
             title: 'Operations Director'
           },
           loggedInAt: new Date().toISOString()
